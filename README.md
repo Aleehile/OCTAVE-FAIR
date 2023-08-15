@@ -3,7 +3,7 @@ The OCTAVE-FAIR is a risk management model for cloud computing services to help 
 
 
 
-
+![image](https://github.com/Aleehile/OCTAVE-FAIR/assets/142294239/f2e50397-2506-4bf3-b300-831b5df25747)
 
 
 
@@ -18,9 +18,8 @@ OCTAVEFAIR is a 5-phase robust risk management framework that combines the stren
 
 •**Risk Prioritization**: Having completed the risk analysis, the model progresses to the risk prioritization phase. Risks are ranked based on their impact and likelihood, considering qualitative factors like criticality and exploitability, alongside quantitative factors such as the Loss Event Frequency (LEF) and Probable Loss Magnitude (PLM). This prioritization will facilitate resource allocation, enabling organizations to focus on mitigating the most significant and urgent risks first.
 
-•	Risk Mitigation: The final phase of the OCTAVEFAIR model addresses risk mitigation strategies. Leveraging insights from the previous phases, the phase aims to aid organizations in developing and implementing tailored risk mitigation approaches for their cloud environment. These strategies involve identifying and deploying appropriate security controls to reduce vulnerabilities and decrease the likelihood of successful attacks 
-Fig 1: Five phases of the OCTAVEFAIR risk management model for cloud computing services
+•**Risk Mitigation**: The final phase of the OCTAVEFAIR model addresses risk mitigation strategies. Leveraging insights from the previous phases, the phase aims to aid organizations in developing and implementing tailored risk mitigation approaches for their cloud environment. These strategies involve identifying and deploying appropriate security controls to reduce vulnerabilities and decrease the likelihood of successful attacks 
+
 
 The OCTAVEFAIR risk management model for cloud computing services developed in this study presents a comprehensive and potent approach to identifying, assessing, prioritizing, and mitigating risks. By combining OCTAVE's qualitative threat identification and vulnerability assessment with FAIR's quantitative risk analysis and prioritization capabilities, organizations can proactively manage and fortify their cloud environments.
-4.2 Development of the OCTAVEFAIR model
-This section discusses the development of OCTAVEFAIR, which combines OCTAVE and FAIR, stemmed from the intention to harness the advantages of both models, resulting in a more all-encompassing and resilient risk management framework, specifically tailored for cloud computing environments. By merging OCTAVE's qualitative approach with FAIR's quantitative capabilities, organizations can achieve a comprehensive understanding of their cloud-related risks and make well-informed decisions considering both financial impact and qualitative aspects.
+
