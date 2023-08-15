@@ -1,34 +1,38 @@
 class Risk:
-    def __init__(self, name, impact, likelihood):
+    def __init__(self, name, threat_event_frequency, loss_event_frequency, probable_loss_magnitude):
         self.name = name
-        self.impact = impact
-        self.likelihood = likelihood
+        self.threat_event_frequency = threat_event_frequency
+        self.loss_event_frequency = loss_event_frequency
+        self.probable_loss_magnitude = probable_loss_magnitude
 
-# Define risk factors (name, impact, likelihood)
+# Define risk factors (name, threat_event_frequency, loss_event_frequency, probable_loss_magnitude)
 risk_factors = [
-    Risk("Data Breach", "High", "Medium"),
-    Risk("Downtime", "High", "Low"),
-    Risk("Vendor Lock-In", "Medium", "Medium"),
+    Risk("Data Breach", 0.5, 0.3, 1000000),
+    Risk("Downtime", 0.4, 0.2, 500000),
+    Risk("Vendor Lock-In", 0.2, 0.1, 200000),
     # Add more risk factors
 ]
 
-# Define impact and likelihood scales (High, Medium, Low)
-impact_scale = {"High": 0.9, "Medium": 0.6, "Low": 0.3}
-likelihood_scale = {"High": 0.8, "Medium": 0.5, "Low": 0.2}
+def calculate_risk_factors(risk):
+    threat_event_frequency = risk.threat_event_frequency
+    loss_event_frequency = risk.loss_event_frequency
+    probable_loss_magnitude = risk.probable_loss_magnitude
 
-def calculate_risk(risk):
-    impact_value = impact_scale[risk.impact]
-    likelihood_value = likelihood_scale[risk.likelihood]
-    return impact_value * likelihood_value
+    annualized_loss_expectancy = threat_event_frequency * loss_event_frequency * probable_loss_magnitude
+    risk.tef = threat_event_frequency
+    risk.lef = loss_event_frequency
+    risk.plm = probable_loss_magnitude
+    risk.ale = annualized_loss_expectancy
 
 def analyze_risks(risk_factors):
-    total_risk = 0
     for risk in risk_factors:
-        risk_value = calculate_risk(risk)
-        total_risk += risk_value
-        print(f"Risk: {risk.name}, Impact: {risk.impact}, Likelihood: {risk.likelihood}, Risk Value: {risk_value:.2f}")
-    
-    print(f"Total Risk Value: {total_risk:.2f}")
+        calculate_risk_factors(risk)
+        print(f"Risk: {risk.name}")
+        print(f" - Threat Event Frequency (TEF): {risk.tef:.2f}")
+        print(f" - Loss Event Frequency (LEF): {risk.lef:.2f}")
+        print(f" - Probable Loss Magnitude (PLM): {risk.plm:.2f}")
+        print(f" - Annualized Loss Expectancy (ALE): {risk.ale:.2f}\n")
 
 if __name__ == '__main__':
     analyze_risks(risk_factors)
+
