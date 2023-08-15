@@ -1,1 +1,29 @@
+import boto3
+
+# Initialize the AWS EC2 client
+ec2 = boto3.client('ec2')
+
+# Define resource IDs and corresponding security group IDs for mitigation
+resource_security_groups = {
+    'i-1234567890abcdef0': ['sg-0123456789abcdef0'],
+    'i-abcdef1234567890': ['sg-0abcdef1234567890']
+    # Add more resources and security groups as needed
+}
+
+def apply_security_groups(resource_id, security_group_ids):
+    try:
+        response = ec2.modify_instance_attribute(
+            InstanceId=resource_id,
+            Groups=security_group_ids
+        )
+        print(f"Security groups applied to {resource_id}: {security_group_ids}")
+    except Exception as e:
+        print(f"Error applying security groups to {resource_id}: {str(e)}")
+
+def mitigate_risks(resources):
+    for resource_id, security_group_ids in resources.items():
+        apply_security_groups(resource_id, security_group_ids)
+
+if __name__ == '__main__':
+    mitigate_risks(resource_security_groups)
 
