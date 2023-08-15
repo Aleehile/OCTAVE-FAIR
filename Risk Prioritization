@@ -1,0 +1,37 @@
+class Risk:
+    def __init__(self, name, impact, likelihood):
+        self.name = name
+        self.impact = impact
+        self.likelihood = likelihood
+
+# Define risk factors (name, impact, likelihood)
+risk_factors = [
+    Risk("Data Breach", "High", "Medium"),
+    Risk("Downtime", "High", "Low"),
+    Risk("Vendor Lock-In", "Medium", "Medium"),
+    # Add more risk factors
+]
+
+# Define impact and likelihood scales (High, Medium, Low)
+impact_scale = {"High": 0.9, "Medium": 0.6, "Low": 0.3}
+likelihood_scale = {"High": 0.8, "Medium": 0.5, "Low": 0.2}
+
+def calculate_risk_score(risk):
+    impact_value = impact_scale[risk.impact]
+    likelihood_value = likelihood_scale[risk.likelihood]
+    return impact_value * likelihood_value
+
+def prioritize_risks(risk_factors):
+    risk_scores = []
+    for risk in risk_factors:
+        risk_score = calculate_risk_score(risk)
+        risk_scores.append((risk.name, risk_score))
+    
+    risk_scores.sort(key=lambda x: x[1], reverse=True)  # Sort risks by score in descending order
+    
+    print("Risk Prioritization:")
+    for rank, (risk_name, risk_score) in enumerate(risk_scores, start=1):
+        print(f"{rank}. Risk: {risk_name}, Score: {risk_score:.2f}")
+
+if __name__ == '__main__':
+    prioritize_risks(risk_factors)
