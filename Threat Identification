@@ -1,0 +1,76 @@
+import boto3
+import json
+import datetime
+
+# Initialize the AWS CloudWatch client
+cloudwatch = boto3.client('cloudwatch')
+
+# Define the metrics and dimensions to monitor
+metrics_to_monitor = [
+    {
+        'Namespace': 'AWS/EC2',
+        'MetricName': 'CPUUtilization',
+        'Dimensions': [
+            {'Name': 'InstanceId', 'Value': 'your-instance-id'}
+        ]
+    },
+    {
+        'Namespace': 'AWS/RDS',
+        'MetricName': 'CPUUtilization',
+        'Dimensions': [
+            {'Name': 'DBInstanceIdentifier', 'Value': 'your-db-instance-id'}
+        ]
+    }
+    # Add more metrics and dimensions as needed
+]
+
+# Define the threshold values for detecting anomalies
+thresholds = {
+    'AWS/EC2': {
+        'CPUUtilization': 90
+    },
+    'AWS/RDS': {
+        'CPUUtilization': 80
+    }
+    # Add more thresholds as needed
+}
+
+def check_threshold(namespace, metric_name, value):
+    if namespace in thresholds and metric_name in thresholds[namespace]:
+        threshold = thresholds[namespace][metric_name]
+        return value > threshold
+    return False
+
+def analyze_metrics():
+    for metric_config in metrics_to_monitor:
+        namespace = metric_config['Namespace']
+        metric_name = metric_config['MetricName']
+        dimensions = metric_config['Dimensions']
+
+        response = cloudwatch.get_metric_data(
+            MetricDataQueries=[
+                {
+                    'Id': 'm1',
+                    'MetricStat': {
+                        'Metric': {
+                            'Namespace': namespace,
+                            'MetricName': metric_name,
+                            'Dimensions': dimensions
+                        },
+                        'Period': 300,
+                        'Stat': 'Average'
+                    },
+                    'ReturnData': True
+                },
+            ],
+            StartTime=datetime.datetime.utcnow() - datetime.timedelta(minutes=30),
+            EndTime=datetime.datetime.utcnow()
+        )
+
+        for metric_data in response['MetricDataResults']:
+            value = metric_data['Values'][0]
+            if check_threshold(namespace, metric_name, value):
+                print(f"Anomaly detected: Namespace: {namespace}, Metric: {metric_name}, Value: {value}")
+
+if __name__ == '__main__':
+    analyze_metrics()
