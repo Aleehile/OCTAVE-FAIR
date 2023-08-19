@@ -1,4 +1,4 @@
-# OCTAVE-FAIR:Risk management model for cloud computing services
+# MSc Project Risk Management Model based on OCTAVE-FAIR
 The OCTAVE-FAIR is a risk management model for cloud computing services to help organizations like Netflix with risk assessment and mitigation
 
 
